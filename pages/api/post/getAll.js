@@ -29,11 +29,18 @@ export default async (req, res) => {
     .limit(limit)
     .skip((page - 1) * limit)
     .toArray();
-    res.json({
-      count: count,
-     
-      next: next,
-      previous: previous,
-      result: posts
-    });
+
+    if(page>maxPage){
+      res.json({
+        detail:'Invalid page.'
+      })
+    }else{
+      res.json({
+        count: count,
+        next: next,
+        previous: previous,
+        result: posts
+      });
+    }
+  
 };
