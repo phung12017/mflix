@@ -9,7 +9,7 @@ export default async (req, res) => {
   const limit = parseInt(10)
   const count = parseInt(await db.collection('items').count())
   const maxPage = Math.ceil(count / limit)
-  let next = `http://flix-sigma.vercel.app/api/post/getAll?page=${page + 1}`
+  let next = `http://mflix-sigma.vercel.app/api/post/getAll?page=${page + 1}`
   if (page === maxPage) {
     next = null
   }
@@ -17,9 +17,9 @@ export default async (req, res) => {
   if (page === 1) {
     previous = null
   } else if (page == 2) {
-    previous = `http://flix-sigma.vercel.app/api/post/getAll`
+    previous = `http://mflix-sigma.vercel.app/api/post/getAll`
   } else if (page >= 3) {
-    previous = `http://flix-sigma.vercel.app/api/post/getAll?page=${page - 1}`
+    previous = `http://mflix-sigma.vercel.app/api/post/getAll?page=${page - 1}`
   }
 
 
