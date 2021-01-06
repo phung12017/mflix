@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import { connectToDatabase } from "../../../util/mongodb";
 export default async (req, res) => {
+  
   const { db } = await connectToDatabase();
 
 
@@ -8,7 +9,7 @@ export default async (req, res) => {
   const limit = parseInt(10)
   const count = parseInt(await db.collection('items').count())
   const maxPage = Math.ceil(count / limit)
-  let next = `http://localhost:3000/api/post/getAll?page=${page + 1}`
+  let next = `http://flix-sigma.vercel.app/api/post/getAll?page=${page + 1}`
   if (page === maxPage) {
     next = null
   }
@@ -16,9 +17,9 @@ export default async (req, res) => {
   if (page === 1) {
     previous = null
   } else if (page == 2) {
-    previous = `http://localhost:3000/api/post/getAll`
+    previous = `http://flix-sigma.vercel.app/api/post/getAll`
   } else if (page >= 3) {
-    previous = `http://localhost:3000/api/post/getAll?page=${page - 1}`
+    previous = `http://flix-sigma.vercel.app/api/post/getAll?page=${page - 1}`
   }
 
 
@@ -28,11 +29,11 @@ export default async (req, res) => {
     .limit(limit)
     .skip((page - 1) * limit)
     .toArray();
-   res.json({
-    count: count,
+    res.json({
+      count: count,
 
-    next: next,
-    previous: previous,
-    result: posts
-  });
+      next: next,
+      previous: previous,
+      result: posts
+    });
 };
